@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPA Signer | math12393</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Nexus Signer">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        body {
+            background: #070a13;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        #main-wrapper {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 30px 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 6vw, 2.2rem);
+            margin-bottom: 10px;
+            color: #38bdf8;
+        }
+        p.subtitle {
+            color: #94a3b8;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .announcement-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        .announcement-box h3 {
+            color: #ef4444;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .announcement-box p {
+            font-size: 0.85rem;
+            color: #f8fafc;
+            line-height: 1.5;
+            margin-bottom: 5px;
+        }
+        .status-up {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .update-alert {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid #38bdf8;
+            border-radius: 15px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: #fff;
+            text-align: left;
+        }
+
+        .primary-btn {
+            display: block;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            color: #000;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.2rem;
+            padding: 20px;
+            border-radius: 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            transition: transform 0.2s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+        .primary-btn:active {
+            transform: scale(0.95);
+        }
+
+        .premium-box {
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .premium-box h3 {
+            color: #eab308;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .premium-box p {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .premium-box .warning {
+            color: #ef4444;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .premium-box .placeholder {
+            font-style: italic;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .content-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .content-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #f8fafc;
+        }
+
+        .ipa-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+        }
+        .ipa-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #38bdf8;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .ipa-item:hover {
+            background: rgba(56, 189, 248, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .step {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        .step-icon {
+            background: #38bdf8;
+            color: #000;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .step-text b {
+            color: #38bdf8;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .step-text p {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        .engine-container {
+            margin-bottom: 30px;
+        }
+        .engine-fallback-bar {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 15px 15px 0 0;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .engine-fallback-bar span {
+            font-size: 0.85rem;
+            color: #fca5a5;
+            font-weight: 500;
+            flex: 1;
+            min-width: 200px;
+        }
+        .engine-fallback-bar a {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            transition: all 0.2s;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .engine-fallback-bar a:hover {
+            background: rgba(239, 68, 68, 0.3);
+            color: #fecaca;
+        }
+        .engine-wrap {
+            width: 100%;
+            height: 800px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: none;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+        }
+        .engine-wrap.no-fallback {
+            border-radius: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .import-toggle-btn {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            margin-bottom: 0;
+        }
+        .import-section {
+            margin-top: 20px;
+        }
+        .warning-amber {
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+        }
+        .recommend-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: #fff;
+            transition: background 0.2s;
+        }
+        .recommend-card:hover {
+            background: rgba(16, 185, 129, 0.15);
+        }
+        .recommend-card span {
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        .recommend-card .arrow {
+            color: #10b981;
+            font-size: 1.2rem;
+        }
+
+        .profile-selector {
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .profile-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .profile-card:hover {
+            background: rgba(56, 189, 248, 0.08);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+        .profile-card.selected {
+            background: rgba(56, 189, 248, 0.12);
+            border-color: #38bdf8;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+        .profile-card .radio-dot {
+            min-width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+            transition: all 0.2s;
+        }
+        .profile-card.selected .radio-dot {
+            border-color: #38bdf8;
+            background: #38bdf8;
+        }
+        .profile-card.selected .radio-dot::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: #000;
+            border-radius: 50%;
+        }
+        .profile-card .card-content {
+            flex: 1;
+        }
+        .profile-card .card-title {
+            font-weight: bold;
+            font-size: 1rem;
+            color: #f8fafc;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .profile-card .badge {
+            background: #38bdf8;
+            color: #000;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .profile-card .card-desc {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+        .profile-card .card-warning {
+            color: #ef4444;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+        .download-btn {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            color: #000;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.2rem;
+            padding: 18px;
+            border-radius: 18px;
+            margin-top: 15px;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            display: block;
+            transition: transform 0.2s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+        .download-btn:active {
+            transform: scale(0.95);
+        }
+
+        .advanced-tools-section {
+            margin-bottom: 30px;
+        }
+        .tool-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .tool-panel-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: background 0.2s;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+        .tool-panel-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .tool-icon {
+            font-size: 2rem;
+            min-width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+        }
+        .tool-info {
+            flex: 1;
+        }
+        .tool-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            color: #f8fafc;
+        }
+        .tool-info p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+        .tool-arrow {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            transition: transform 0.3s ease;
+            min-width: 24px;
+            text-align: center;
+        }
+        .tool-panel.expanded .tool-arrow {
+            transform: rotate(180deg);
+        }
+        .tool-panel-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .tool-panel.expanded .tool-panel-body {
+            max-height: 1100px;
+        }
+        .tool-panel-body-inner {
+            padding: 0 20px 20px 20px;
+        }
+        .tool-description {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .tool-iframe-wrap {
+            width: 100%;
+            height: 800px;
+            border-radius: 0 0 15px 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: none;
+            background: #000;
+        }
+        .tool-iframe-wrap.no-fallback {
+            border-radius: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .open-external-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            transition: background 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .open-external-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .iframe-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1;
+        }
+        .spinner {
+            border: 3px solid rgba(56, 189, 248, 0.3);
+            border-top: 3px solid #38bdf8;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .tool-fallback-bar {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 15px 15px 0 0;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .tool-fallback-bar span {
+            font-size: 0.85rem;
+            color: #fca5a5;
+            font-weight: 500;
+            flex: 1;
+            min-width: 150px;
+        }
+        .tool-fallback-bar a {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            transition: all 0.2s;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tool-fallback-bar a:hover {
+            background: rgba(239, 68, 68, 0.3);
+            color: #fecaca;
+        }
+
+        /* Companion button */
+        .companion-btn {
+            display: block;
+            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 18px 24px;
+            border-radius: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+        .companion-btn:hover {
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.55);
+            transform: translateY(-2px);
+        }
+        .companion-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Admin button */
+        #admin-site-btn {
+            position: fixed;
+            bottom: 22px;
+            right: 22px;
+            z-index: 9997;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(30, 30, 40, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #cbd5e1;
+            padding: 10px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+            white-space: nowrap;
+        }
+        #admin-site-btn:hover {
+            background: rgba(40, 40, 55, 0.95);
+            border-color: rgba(168, 85, 247, 0.6);
+            color: #fff;
+            box-shadow: 0 6px 28px rgba(168, 85, 247, 0.35);
+            transform: translateY(-2px);
+        }
+        #admin-site-btn:active {
+            transform: scale(0.94);
+            transition: transform 0.1s ease;
+        }
+        #admin-site-btn .admin-icon {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        /* AI floating bubble */
+        #ai-floating-bubble {
+            position: fixed;
+            bottom: 22px;
+            left: 22px;
+            z-index: 9998;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00f2ff 0%, #0077ff 100%);
+            border: 2px solid rgba(0, 242, 255, 0.5);
+            box-shadow: 0 0 22px rgba(0, 242, 255, 0.45), 0 4px 18px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+            color: #000;
+            font-weight: bold;
+        }
+        #ai-floating-bubble:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 35px rgba(0, 242, 255, 0.6), 0 6px 22px rgba(0, 0, 0, 0.6);
+        }
+        #ai-floating-bubble:active {
+            transform: scale(0.9);
+            transition: transform 0.1s ease;
+        }
+
+        /* AI chat popup */
+        #ai-chat-popup {
+            position: fixed;
+            bottom: 85px;
+            left: 22px;
+            z-index: 9999;
+            width: 340px;
+            max-width: calc(100vw - 44px);
+            height: 440px;
+            max-height: calc(100vh - 120px);
+            background: #0d1117;
+            border: 1px solid rgba(0, 242, 255, 0.35);
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.3), 0 10px 35px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: bottom left;
+            opacity: 0;
+            transform: scale(0.85);
+            pointer-events: none;
+        }
+        #ai-chat-popup.open {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: all;
+        }
+        #ai-chat-popup .ai-chat-header {
+            background: rgba(0, 242, 255, 0.08);
+            border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        #ai-chat-popup .ai-chat-header .ai-title {
+            color: #00f2ff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        #ai-chat-popup .ai-chat-header .ai-close-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+        #ai-chat-popup .ai-chat-header .ai-close-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        #ai-chat-popup .ai-chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #0a0e14;
+        }
+        #ai-chat-popup .ai-chat-messages .msg {
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 0.82rem;
+            line-height: 1.45;
+            word-wrap: break-word;
+            max-width: 88%;
+            animation: msgPopIn 0.25s ease;
+        }
+        @keyframes msgPopIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        #ai-chat-popup .ai-chat-messages .msg.user {
+            background: #1a3a5c;
+            color: #e0f0ff;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        #ai-chat-popup .ai-chat-messages .msg.ai {
+            background: #111922;
+            color: #00f2ff;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            border: 1px solid rgba(0, 242, 255, 0.15);
+        }
+        #ai-chat-popup .ai-chat-messages .msg.error {
+            background: #220000;
+            color: #ff4444;
+            align-self: flex-start;
+            border: 1px solid #ff4444;
+            border-bottom-left-radius: 4px;
+        }
+        #ai-chat-popup .ai-chat-input-row {
+            display: flex;
+            gap: 8px;
+            padding: 10px 12px;
+            border-top: 1px solid rgba(0, 242, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+        #ai-chat-popup .ai-chat-input-row input {
+            flex: 1;
+            padding: 10px 14px;
+            background: #111;
+            color: #fff;
+            border: 1px solid rgba(0, 242, 255, 0.4);
+            border-radius: 25px;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        #ai-chat-popup .ai-chat-input-row input:focus {
+            border-color: #00f2ff;
+        }
+        #ai-chat-popup .ai-chat-input-row button {
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #00f2ff 0%, #0077ff 100%);
+            color: #000;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        #ai-chat-popup .ai-chat-input-row button:disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
+        }
+        #ai-chat-popup .ai-chat-input-row button:not(:disabled):active {
+            transform: scale(0.93);
+        }
+
+        @media (max-width: 480px) {
+            #admin-site-btn {
+                bottom: 14px;
+                right: 14px;
+                padding: 9px 14px;
+                font-size: 0.72rem;
+                gap: 6px;
+                border-radius: 26px;
+            }
+            #admin-site-btn .admin-icon {
+                font-size: 1rem;
+            }
+            #ai-floating-bubble {
+                bottom: 14px;
+                left: 14px;
+                width: 46px;
+                height: 46px;
+                font-size: 1.3rem;
+            }
+            #ai-chat-popup {
+                bottom: 72px;
+                left: 10px;
+                width: calc(100vw - 20px);
+                max-width: 360px;
+                height: 400px;
+                max-height: calc(100vh - 100px);
+                border-radius: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main-wrapper"></div>
+
+    <!-- Admin Site Button -->
+    <button id="admin-site-btn" title="Admin Panel">
+        <span class="admin-icon">🔐</span>
+        <span class="admin-label">Admin Site</span>
+    </button>
+
+    <!-- AI Floating Bubble -->
+    <div id="ai-floating-bubble" title="Ask Tom The AI">🤖</div>
+
+    <!-- AI Chat Popup -->
+    <div id="ai-chat-popup">
+        <div class="ai-chat-header">
+            <span class="ai-title">🤖 Tom The AI</span>
+            <button class="ai-close-btn" id="ai-close-btn">✕</button>
+        </div>
+        <div class="ai-chat-messages" id="ai-chat-messages">
+            <div class="msg ai">Tom: Hey! I'm Tom. I know a lot about IPA signing, iOS certificates, sideloading, enterprise certs, UDID registrations, p12 files, mobileprovision profiles, and all things iOS app signing. Ask me anything!</div>
+        </div>
+        <div class="ai-chat-input-row">
+            <input type="text" id="ai-input" placeholder="Ask about IPA, certs, iOS...">
+            <button id="ai-send-btn" onclick="aiAsk()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const appData = {
+            title: "Nexus IPA Signer - By Wen",
+            sub: "The easiest way to sign apps on iOS",
+            configUrl: "signed_nexus.mobileconfig",
+            engineUrl: "https://math12393-ipa-signer-engine.hf.space/",
+            importToolUrl: "https://math12393-ipa-signer-engine.hf.space/import.html",
+            adminBaseUrl: "https://math12393-ipa-signer-engine.hf.space/admin/stats",
+            companionUrl: "https://math12393.codeberg.page/IPA-SIGNER-WEN/nexus-signer.html",
+            announcements: [
+                "⚠️ National Oilwell Varco, Inc. is currently <b>revoked</b>.",
+                "⚠️ XL AXIATA, PT TBK is currently <b>revoked</b>.",
+                "⚠️ Aramco Services Company is currently <b>revoked</b>.",
+                "⚠️ China Telecom Corporation Limited is currently <b>revoked</b>.",
+                "✅ Wait Till New <span class='status-up'> Certificate </span> Comes out"
+            ],
+            updateNotice: "🚀 <b>Important Update:</b> The Mobile Config has been updated to the latest enterprise certificate. To avoid issues, please <b>delete any old configuration profiles</b> from your settings before installing this new one.",
+            popularIpas: [
+                { name: "Geometry Dash 2.205", url: "https://archive.org/download/ipas_20260327_20260330/geometry_dash_v2.205.ipa" },
+                { name: "Spotify Premium", url: "https://archive.org/download/ipas_20260327_20260330/Spotify_premium.ipa" },
+                { name: "Minecraft IOS", url: "https://archive.org/download/ipas_20260327_20260330/Minecraft.ipa" },
+                { name: "Geometry Dash MOD", url: "https://archive.org/download/ipas_20260327_20260330/Geometry_dash_mod.ipa" },
+                { name: "Clash Royale MOD", url: "https://archive.org/download/ipas_20260327_20260330/Clash_Royale_mod.ipa" },
+                { name: "Discord MOD", url: "https://archive.org/download/ipas_20260327_20260330/Discord_mod.ipa" },
+                { name: "GTA 5", url: "https://archive.org/download/ipas_20260327_20260330/Grand_Theft_Auto_V.ipa" },
+                { name: "JIT enabler", url: "https://archive.org/download/ipas_20260327_20260330/StikDebug_JIT_enabler.ipa" },
+                { name: "UTM Virtual Machine Runner", url: "https://archive.org/download/ipas_20260327_20260330/UTM_HV_Virtual_Machine_runner.ipa" },
+                { name: "TrollinstallerX", url: "https://github.com/alfiecg24/TrollInstallerX/releases/download/1.0.3/TrollInstallerX.ipa" },
+                { name: "Nintendo Emulator", url: "https://archive.org/download/ipas_20260327_20260330/MeloNX_Nintendo_Emulator.ipa" },
+                { name: "IOS Jailbreaker", url: "https://github.com/opa334/Dopamine/releases/latest/download/Dopamine.ipa" },
+                { name: "Bloons TD 6", url: "https://archive.org/download/ipas_20260327_20260330/Bloons_TD_6.ipa" },
+                { name: "Geometry Dash 2.208", url: "https://archive.org/download/ipas_20260327_20260330/Geometry_Dash_2.208.ipa" },
+            ],
+            ezSteps: [
+                {
+                    head: "Step 1: Install Config",
+                    body: "Click the big blue button above. Tap 'Allow', then close the popup. Go to <b>Settings > Profile Downloaded</b> and hit Install."
+                },
+                {
+                    head: "Step 2: Sign Your App",
+                    body: "Use the Tool below. Upload your .IPA file, wait for it to finish, and click the <b>Install</b> button when it appears."
+                },
+                {
+                    head: "Step 3: Trust the App",
+                    body: "The app won't open yet! Go to <b>Settings > General > VPN & Device Management</b>. Find the developer name and tap <b>Trust</b>."
+                },
+                {
+                    head: "Step 4: Dev Mode (iOS 16+)",
+                    body: "If it says 'Developer Mode Required', go to <b>Settings > Privacy & Security</b>, scroll to the bottom, and turn <b>Developer Mode ON</b>."
+                }
+            ],
+            recommendedSites: [
+                { name: "UDID Registrations", url: "https://www.udidregistrations.com/buy" },
+                { name: "Kravasign", url: "https://www.kravasign.com/purchase" },
+                { name: "DXSign", url: "https://dxsign.cc/purchase" }
+            ],
+            profiles: [
+                {
+                    id: "cr-comprehensive",
+                    name: "CR Blocker (Comprehensive)",
+                    desc: "Certificate revoke only. No VPN-proof, no ad blocking.",
+                    file: "signed_nexus_1.mobileconfig",
+                    recommended: true,
+                    warning: null
+                },
+                {
+                    id: "cr-adblock",
+                    name: "CR + Ad Blocker",
+                    desc: "Certificate revoke + ad blocking. No VPN-proof.",
+                    file: "signed_nexus_2.mobileconfig",
+                    recommended: false,
+                    warning: null
+                },
+                {
+                    id: "cr-vpnproof",
+                    name: "CR Blocker (VPN-Proof)",
+                    desc: "Certificate revoke + VPN-proof. No ad blocking.",
+                    file: "signed_nexus_3.mobileconfig",
+                    recommended: false,
+                    warning: null
+                },
+                {
+                    id: "cr-adblock-vpnproof",
+                    name: "CR + Ad Blocker (VPN-Proof)",
+                    desc: "Certificate revoke + ad block + VPN-proof. Full protection.",
+                    file: "signed_nexus_4.mobileconfig",
+                    recommended: false,
+                    warning: null
+                },
+                {
+                    id: "all-apple-block",
+                    name: "☠️ ALL Apple Domains Blocked",
+                    desc: "Everything blocked. Breaks iMessage, iCloud, App Store.",
+                    file: "signed_nexus_5.mobileconfig",
+                    recommended: false,
+                    warning: "⚠️ NOT RECOMMENDED: Breaks iMessage, iCloud, App Store, and other Apple services."
+                }
+            ],
+            advancedTools: [
+                {
+                    id: "ipa-editor",
+                    title: "🛠️ IPA Editor",
+                    subtitle: "Edit any IPA",
+                    description: "Modify IPA contents, change bundle IDs, edit metadata, add files, and customize your apps before signing.",
+                    url: "https://math12393-ipa-signer-engine.hf.space/edit.html",
+                    color: "#a855f7",
+                    gradient: "linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)",
+                    shadowColor: "rgba(168, 85, 247, 0.4)"
+                },
+                {
+                    id: "cert-manager",
+                    title: "🔐 Certificate & Provision Manager",
+                    subtitle: "Change p12 password, check status",
+                    description: "Manage your certificates and provisioning profiles. Change p12 passwords, verify certificate validity, and check provision status.",
+                    url: "https://math12393-ipa-signer-engine.hf.space/edit-cert.html",
+                    color: "#f59e0b",
+                    gradient: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
+                    shadowColor: "rgba(245, 158, 11, 0.4)"
+                }
+            ]
+        };
+
+        function createFallbackBar(label, url) {
+            return `
+                <div class="engine-fallback-bar">
+                    <span>⚠️ If iframe is glitched or not working then open in new tab</span>
+                    <a href="${url}" target="_blank" rel="noopener">
+                        ↗️ Open ${label} in New Tab
+                    </a>
+                </div>
+            `;
+        }
+
+        function createToolFallbackBar(label, url, color) {
+            return `
+                <div class="tool-fallback-bar">
+                    <span>⚠️ If iframe is glitched or not working then open in new tab</span>
+                    <a href="${url}" target="_blank" rel="noopener" style="border-color: ${color};">
+                        ↗️ Open ${label} in New Tab
+                    </a>
+                </div>
+            `;
+        }
+
+        function loadUI() {
+            const container = document.getElementById('main-wrapper');
+
+            const announcementsHtml = appData.announcements.map(text => `<p>${text}</p>`).join('');
+            const ipasHtml = appData.popularIpas.map(ipa =>
+                `<a href="${ipa.url}" class="ipa-item">${ipa.name}</a>`
+            ).join('');
+            const stepsHtml = appData.ezSteps.map((s, i) => `
+                <div class="step">
+                    <div class="step-icon">${i + 1}</div>
+                    <div class="step-text">
+                        <b>${s.head}</b>
+                        <p>${s.body}</p>
+                    </div>
+                </div>
+            `).join('');
+            const recommendedHtml = appData.recommendedSites.map(site => `
+                <a href="${site.url}" target="_blank" rel="noopener" class="recommend-card">
+                    <span>${site.name}</span>
+                    <span class="arrow">→</span>
+                </a>
+            `).join('');
+
+            const profilesHtml = appData.profiles.map((p, index) => `
+                <div class="profile-card${p.recommended ? ' selected' : ''}" data-file="${p.file}" data-index="${index}">
+                    <div class="radio-dot"></div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            ${p.name}
+                            ${p.recommended ? '<span class="badge">Recommended</span>' : ''}
+                        </div>
+                        <div class="card-desc">${p.desc}</div>
+                        ${p.warning ? `<div class="card-warning">${p.warning}</div>` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            const advancedToolsHtml = appData.advancedTools.map(tool => `
+                <div class="tool-panel" data-tool-id="${tool.id}">
+                    <button class="tool-panel-header" style="border-left: 3px solid ${tool.color};">
+                        <div class="tool-icon">${tool.title.match(/[\u{1F300}-\u{1FAFF}]|[\u{2600}-\u{27BF}]/u)?.[0] || '🔧'}</div>
+                        <div class="tool-info">
+                            <h3 style="color: ${tool.color};">${tool.title}</h3>
+                            <p>${tool.subtitle}</p>
+                        </div>
+                        <div class="tool-arrow">▼</div>
+                    </button>
+                    <div class="tool-panel-body">
+                        <div class="tool-panel-body-inner">
+                            <p class="tool-description">${tool.description}</p>
+                            <a href="${tool.url}" target="_blank" rel="noopener" class="open-external-btn" style="border-color: ${tool.color};">
+                                ↗️ Open in New Tab
+                            </a>
+                            ${createToolFallbackBar(tool.title.replace(/[^\w\s]/g, '').trim(), tool.url, tool.color)}
+                            <div class="tool-iframe-wrap" style="position: relative;">
+                                <div class="iframe-loader">
+                                    <div class="spinner" style="border-top-color: ${tool.color};"></div>
+                                    <p style="color: #94a3b8; font-size: 0.85rem;">Loading ${tool.title}...</p>
+                                </div>
+                                <iframe src="" data-src="${tool.url}" allow="clipboard-read; clipboard-write;" style="display: none;"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <h1>${appData.title}</h1>
+                <p class="subtitle">${appData.sub}</p>
+
+                <div class="update-alert">
+                    ${appData.updateNotice}
+                </div>
+
+                <div class="announcement-box">
+                    <h3>📢 Announcements</h3>
+                    ${announcementsHtml}
+                </div>
+
+                <div class="content-box profile-selector" style="margin-bottom: 25px;">
+                    <h3 style="color: #38bdf8;">🛡️ Choose Your Profile</h3>
+                    <div id="profileList">
+                        ${profilesHtml}
+                    </div>
+                    <a id="downloadProfileBtn" href="${appData.profiles.find(p => p.recommended).file}" class="download-btn">
+                        ⬇️ DOWNLOAD SELECTED PROFILE
+                    </a>
+                </div>
+
+                <div class="content-box">
+                    <h3>✨ STEPS</h3>
+                    ${stepsHtml}
+                </div>
+
+                <div class="engine-container">
+                    ${createFallbackBar('Signer', appData.engineUrl)}
+                    <div class="engine-wrap">
+                        <iframe src="${appData.engineUrl}" allow="clipboard-read; clipboard-write;"></iframe>
+                    </div>
+                </div>
+
+                <div class="premium-box">
+                    <h3>💎 Want to buy the enterprise certificate?</h3>
+                    <p>Get exclusive access to the enterprise certificate for only <b>$4.00</b>.</p>
+                    <p class="warning">⚠️ Warning: The certificate might be revoked if not used properly.</p>
+                    <p class="placeholder">(I will add payment later)</p>
+                </div>
+
+                <div class="content-box" style="margin-bottom: 30px;">
+                    <h3>🔥 Popular IPAs</h3>
+                    <div class="ipa-grid">
+                        ${ipasHtml}
+                    </div>
+                </div>
+
+                <div class="content-box advanced-tools-section" style="margin-bottom: 30px;">
+                    <h3 style="color: #a855f7; margin-bottom: 15px;">🧰 Advanced Tools</h3>
+                    ${advancedToolsHtml}
+                </div>
+
+                <div class="content-box" style="margin-bottom: 30px;">
+                    <h3 style="color: #10b981;">🔐 Import Your Own Certificate</h3>
+                    <button id="importToggleBtn" class="primary-btn import-toggle-btn">
+                        ▼ Show Import Tool
+                    </button>
+                    <div id="importSection" class="import-section" style="display: none;">
+                        <div class="announcement-box warning-amber">
+                            <h3 style="color: #eab308;">⚠️ IMPORTANT — Read Before Importing</h3>
+                            <p>🚫 <b>NON-Enterprise certificates (developer/individual):</b> Do <b>NOT</b> install the Mobile Config button above. Only import your .p12 and .mobileprovision here.</p>
+                            <p>✅ <b>Enterprise certificates:</b> Install the Mobile Config above first, then import here.</p>
+                            <p>🔒 After signing, go to <b>Settings > General > VPN & Device Management</b> and <b>Trust</b> the certificate.</p>
+                        </div>
+                        <div class="content-box" style="margin-top: 15px;">
+                            <h3 style="font-size: 0.95rem; margin-bottom: 12px;">📋 Quick Steps</h3>
+                            <div class="step">
+                                <div class="step-icon" style="background: #10b981;">1</div>
+                                <div class="step-text">
+                                    <b style="color: #10b981;">Upload Files</b>
+                                    <p>Select your <b>.mobileprovision</b> and <b>.p12</b> certificate files below.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon" style="background: #10b981;">2</div>
+                                <div class="step-text">
+                                    <b style="color: #10b981;">Password & Bundle ID</b>
+                                    <p>Enter the <b>p12 password</b> (if encrypted) and the <b>Bundle ID</b> (if required).</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon" style="background: #10b981;">3</div>
+                                <div class="step-text">
+                                    <b style="color: #10b981;">Upload IPA & Sign</b>
+                                    <p>Select your .IPA file and let the tool sign it.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon" style="background: #10b981;">4</div>
+                                <div class="step-text">
+                                    <b style="color: #10b981;">Trust & Launch</b>
+                                    <p>Go to <b>Settings > General > VPN & Device Management</b>, find the cert name, and tap <b>Trust</b>.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="engine-container" style="margin-top: 20px; margin-bottom: 20px;">
+                            ${createFallbackBar('Import Tool', appData.importToolUrl)}
+                            <div class="engine-wrap" style="height: 1000px;">
+                                <iframe src="${appData.importToolUrl}" allow="clipboard-read; clipboard-write;"></iframe>
+                            </div>
+                        </div>
+                        <div class="content-box" style="margin-bottom: 0;">
+                            <h3 style="color: #10b981; margin-bottom: 12px;">🛒 Where to Buy Certificates</h3>
+                            ${recommendedHtml}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Companion Button -->
+                <a href="${appData.companionUrl}" target="_blank" rel="noopener" class="companion-btn">
+                    🚀 Go To Nexus Signer Side Loading Companion
+                </a>
+            `;
+
+            // Profile selection
+            const profileCards = document.querySelectorAll('.profile-card');
+            const downloadBtn = document.getElementById('downloadProfileBtn');
+            let selectedFile = appData.profiles.find(p => p.recommended).file;
+
+            profileCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    profileCards.forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedFile = this.dataset.file;
+                    downloadBtn.href = selectedFile;
+                    downloadBtn.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        downloadBtn.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+
+            // Import toggle
+            const toggleBtn = document.getElementById('importToggleBtn');
+            const importSection = document.getElementById('importSection');
+            toggleBtn.addEventListener('click', function() {
+                if (importSection.style.display === 'none') {
+                    importSection.style.display = 'block';
+                    toggleBtn.innerHTML = '▲ Hide Import Tool';
+                } else {
+                    importSection.style.display = 'none';
+                    toggleBtn.innerHTML = '▼ Show Import Tool';
+                }
+            });
+
+            // Advanced tools accordion
+            const toolPanels = document.querySelectorAll('.tool-panel');
+            toolPanels.forEach(panel => {
+                const header = panel.querySelector('.tool-panel-header');
+                const iframe = panel.querySelector('iframe');
+                const loader = panel.querySelector('.iframe-loader');
+                let iframeLoaded = false;
+
+                header.addEventListener('click', function() {
+                    const isExpanded = panel.classList.contains('expanded');
+                    toolPanels.forEach(p => {
+                        if (p !== panel) p.classList.remove('expanded');
+                    });
+                    if (isExpanded) {
+                        panel.classList.remove('expanded');
+                    } else {
+                        panel.classList.add('expanded');
+                        if (!iframeLoaded && iframe) {
+                            const src = iframe.getAttribute('data-src');
+                            if (src) {
+                                iframe.style.display = 'none';
+                                loader.style.display = 'block';
+                                iframe.src = src;
+                                iframeLoaded = true;
+                                iframe.onload = function() {
+                                    loader.style.display = 'none';
+                                    iframe.style.display = 'block';
+                                };
+                                setTimeout(() => {
+                                    if (loader.style.display !== 'none') {
+                                        loader.style.display = 'none';
+                                        iframe.style.display = 'block';
+                                    }
+                                }, 5000);
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        // Admin button
+        function setupAdminButton() {
+            const adminBtn = document.getElementById('admin-site-btn');
+            if (!adminBtn) return;
+
+            adminBtn.addEventListener('click', function() {
+                const userPassword = prompt(
+                    '🔐 Enter admin password to access the stats panel:',
+                    ''
+                );
+                if (userPassword === null) return;
+                const trimmedPassword = userPassword.trim();
+                if (trimmedPassword === '') {
+                    alert('⚠️ Password cannot be empty. Please try again.');
+                    return;
+                }
+                const adminUrl = appData.adminBaseUrl + '?pass=' + encodeURIComponent(trimmedPassword);
+                window.open(adminUrl, '_blank', 'noopener,noreferrer');
+            });
+        }
+
+        // AI Chat with memory
+        function setupAIChat() {
+            const aiBubble = document.getElementById('ai-floating-bubble');
+            const aiPopup = document.getElementById('ai-chat-popup');
+            const aiCloseBtn = document.getElementById('ai-close-btn');
+            const aiInput = document.getElementById('ai-input');
+            const aiSendBtn = document.getElementById('ai-send-btn');
+            const aiMessages = document.getElementById('ai-chat-messages');
+
+            const WORKER_URL = "https://tom-the-ai-api.wen471942.workers.dev/";
+            const SYSTEM_CONTEXT =
+                "You are Tom, an expert AI assistant specialized in iOS IPA signing, sideloading, Apple enterprise certificates, " +
+                "developer certificates, p12 files, mobileprovision profiles, UDID registrations, certificate revokes, " +
+                "iOS app installation, AltStore, SideStore, TrollStore, Esign, Scarlet, Feather signer, " +
+                "certificate blocking (CR blockers), VPN-proof configurations, ad blocking DNS profiles, " +
+                "iOS developer mode, IPA editing, bundle IDs, and all things related to iOS app signing and sideloading. " +
+                "Answer concisely and helpfully. If asked something outside iOS/IPA topics, still try to help briefly.";
+
+            // Memory storage
+            let conversationHistory = [];
+            const MAX_HISTORY = 10; // keep last N exchanges (user + ai)
+
+            let isOpen = false;
+
+            function openPopup() {
+                isOpen = true;
+                aiPopup.classList.add('open');
+                aiBubble.style.opacity = '0';
+                aiBubble.style.pointerEvents = 'none';
+                setTimeout(() => {
+                    aiInput.focus();
+                }, 350);
+            }
+
+            function closePopup() {
+                isOpen = false;
+                aiPopup.classList.remove('open');
+                aiBubble.style.opacity = '1';
+                aiBubble.style.pointerEvents = 'all';
+            }
+
+            aiBubble.addEventListener('click', function() {
+                if (!isOpen) openPopup();
+            });
+
+            aiCloseBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                closePopup();
+            });
+
+            document.addEventListener('click', function(e) {
+                if (isOpen && !aiPopup.contains(e.target) && e.target !== aiBubble && !aiBubble.contains(e.target)) {
+                    closePopup();
+                }
+            });
+
+            function scrollToBottom() {
+                aiMessages.scrollTop = aiMessages.scrollHeight;
+            }
+
+            function addMessage(type, text, storeInMemory = true) {
+                const div = document.createElement('div');
+                div.className = 'msg ' + type;
+                div.textContent = text;
+                aiMessages.appendChild(div);
+                scrollToBottom();
+
+                // Store only user and ai messages in history
+                if (storeInMemory && (type === 'user' || type === 'ai')) {
+                    conversationHistory.push({ role: type, content: text });
+                    // Trim history if too long
+                    if (conversationHistory.length > MAX_HISTORY * 2) {
+                        conversationHistory = conversationHistory.slice(-MAX_HISTORY * 2);
+                    }
+                }
+            }
+
+            window.aiAsk = function() {
+                const val = aiInput.value.replace(/^\s+|\s+$/g, '');
+                if (!val) return;
+                if (!isOpen) return;
+
+                addMessage('user', 'Me: ' + val, true);
+                aiInput.value = '';
+                aiSendBtn.disabled = true;
+
+                // Build prompt with memory
+                let prompt = SYSTEM_CONTEXT + "\n\n";
+                if (conversationHistory.length > 0) {
+                    prompt += "Conversation so far:\n";
+                    conversationHistory.forEach(msg => {
+                        prompt += (msg.role === 'user' ? 'User: ' : 'Tom: ') + msg.content + "\n";
+                    });
+                    prompt += "\n";
+                }
+                prompt += "User: " + val;
+
+                let xhr;
+                if (window.XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();
+                } else {
+                    try {
+                        xhr = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        try {
+                            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (e2) {
+                            addMessage('error', 'Error: This device does not support web requests.', false);
+                            aiSendBtn.disabled = false;
+                            return;
+                        }
+                    }
+                }
+
+                const encoder = window.encodeURIComponent ? encodeURIComponent : escape;
+                xhr.open("GET", WORKER_URL + "?prompt=" + encoder(prompt), true);
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        aiSendBtn.disabled = false;
+                        if (xhr.status === 200 || xhr.status === 0) {
+                            try {
+                                let data;
+                                if (window.JSON && window.JSON.parse) {
+                                    data = JSON.parse(xhr.responseText);
+                                } else {
+                                    data = eval('(' + xhr.responseText + ')');
+                                }
+                                if (data && data.status === "ok") {
+                                    addMessage('ai', 'Tom: ' + data.response, true);
+                                } else {
+                                    const msg = data && data.message ? data.message : "Unknown API Error";
+                                    addMessage('error', 'Error: ' + msg, false);
+                                }
+                            } catch (err) {
+                                addMessage('error', 'Data Error: Unable to read response.', false);
+                            }
+                        } else {
+                            addMessage('error',
+                                'Connection Failed: Status ' + xhr.status +
+                                '. This is likely a TLS/SSL security block on this device.',
+                                false);
+                        }
+                        scrollToBottom();
+                    }
+                };
+
+                xhr.onerror = function() {
+                    aiSendBtn.disabled = false;
+                    addMessage('error', 'Network Error: Connection refused by device security.', false);
+                };
+
+                xhr.send(null);
+            };
+
+            aiInput.addEventListener('keypress', function(e) {
+                const charCode = (e && e.which) ? e.which : (window.event ? window.event.keyCode : 0);
+                if (charCode == 13) {
+                    window.aiAsk();
+                    return false;
+                }
+            });
+        }
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(() => {});
+        }
+
+        window.onload = function() {
+            loadUI();
+            setupAdminButton();
+            setupAIChat();
+        };
+    </script>
+</body>
+</html>

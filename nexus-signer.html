@@ -1,0 +1,909 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="https://math12393.codeberg.page/IPA-SIGNER-WEN/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <link rel="canonical" href="https://math12393.codeberg.page/IPA-SIGNER-WEN/nexus-signer.html" />
+    <meta
+      name="description"
+      content="Official website for Nexus Signer, the free iOS sideloading tool. Download for Windows, Mac, and Linux to install IPA apps."
+    />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="author" content="math12393" />
+    <meta name="application-name" content="Nexus Signer" />
+
+    <meta
+      property="og:title"
+      content="Nexus Signer - Free iOS Sideloading Companion"
+    />
+    <meta
+      property="og:description"
+      content="Official website for Nexus Signer, the free iOS sideloading tool. Download for Windows, Mac, and Linux to install IPA apps."
+    />
+    <meta property="og:url" content="https://math12393.codeberg.page/IPA-SIGNER-WEN/nexus-signer.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nexus Signer" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://math12393.codeberg.page/IPA-SIGNER-WEN/nexus-signer.svg" />
+    <meta property="og:image:alt" content="Nexus Signer logo" />
+
+    <meta
+      name="twitter:title"
+      content="Nexus Signer - Free iOS Sideloading Companion"
+    />
+    <meta
+      name="twitter:description"
+      content="Official website for Nexus Signer, the free iOS sideloading tool. Download for Windows, Mac, and Linux to install IPA apps."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://math12393.codeberg.page/IPA-SIGNER-WEN/nexus-signer.svg" />
+    <title>Nexus Signer</title>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "name": "Nexus Signer",
+            "url": "https://math12393.codeberg.page/IPA-SIGNER-WEN/nexus-signer.html",
+            "publisher": {
+              "@id": "https://math12393.codeberg.page/IPA-SIGNER-WEN/nexus-signer.html#organization"
+            }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://math12393.codeberg.page/IPA-SIGNER-WEN/nexus-signer.html#organization",
+            "name": "Nexus Signer",
+            "url": "https://math12393.codeberg.page/IPA-SIGNER-WEN/nexus-signer.html",
+            "logo": "https://math12393.codeberg.page/IPA-SIGNER-WEN/nexus-signer.svg",
+            "sameAs": ["https://codeberg.org/math12393/IPA-SIGNER-WEN"]
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Nexus Signer",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Windows, macOS, Linux",
+            "description": "A free iOS sideloading tool for installing IPA apps.",
+            "downloadUrl": "https://codeberg.org/math12393/IPA-SIGNER-WEN",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          }
+        ]
+      }
+    </script>
+
+    <style>
+      :root {
+        --bg-primary: #0d0d14;
+        --bg-secondary: #13131f;
+        --bg-card: rgba(22, 22, 40, 0.65);
+        --bg-card-hover: rgba(28, 28, 50, 0.78);
+        --border-card: rgba(255, 255, 255, 0.07);
+        --border-card-hover: rgba(255, 255, 255, 0.14);
+        --accent: #8b5cf6;
+        --accent-glow: rgba(139, 92, 246, 0.35);
+        --accent-light: #a78bfa;
+        --accent-dark: #6d3fd4;
+        --text-primary: #f1f1f6;
+        --text-secondary: #b0b0c0;
+        --text-muted: #7a7a90;
+        --gradient-hero: linear-gradient(135deg, #8b5cf6 0%, #6366f1 40%, #4f46e5 100%);
+        --gradient-card-border: linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(99, 102, 241, 0.15) 50%, rgba(139, 92, 246, 0.05) 100%);
+        --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+        --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.25);
+        --radius-lg: 18px;
+        --radius-md: 12px;
+        --radius-sm: 8px;
+        --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+        --transition-fast: 0.15s ease;
+        --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        min-height: 100vh;
+        line-height: 1.6;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        top: -40%;
+        left: -20%;
+        width: 80%;
+        height: 80%;
+        background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.06) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body::after {
+        content: '';
+        position: fixed;
+        bottom: -30%;
+        right: -15%;
+        width: 60%;
+        height: 60%;
+        background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .grid-overlay {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.03;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px);
+        background-size: 60px 60px;
+        mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+      }
+
+      main.app {
+        position: relative;
+        z-index: 1;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px 24px 60px;
+      }
+
+      .title-block {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 48px;
+        padding: 24px 0;
+      }
+
+      .logo {
+        width: 72px;
+        height: 72px;
+        flex-shrink: 0;
+        filter: drop-shadow(0 8px 24px var(--accent-glow));
+        transition: transform var(--transition-smooth), filter var(--transition-smooth);
+      }
+
+      .logo:hover {
+        transform: scale(1.06);
+        filter: drop-shadow(0 12px 32px rgba(139, 92, 246, 0.5));
+      }
+
+      .title {
+        font-size: 2.8rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        background: var(--gradient-hero);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1.1;
+      }
+
+      .subtitle {
+        color: var(--text-secondary);
+        font-size: 1.05rem;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        margin-top: 2px;
+      }
+
+      .workspace {
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
+      }
+
+      .workspace-section {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        padding: 0 4px;
+      }
+
+      .section-label {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: -0.01em;
+      }
+
+      .section-hint {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-weight: 400;
+      }
+
+      .glass-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-card);
+        border-radius: var(--radius-lg);
+        padding: 28px 30px;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: var(--shadow-card);
+        transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth), background var(--transition-smooth);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .glass-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--gradient-card-border);
+        opacity: 0;
+        transition: opacity var(--transition-smooth);
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      }
+
+      .glass-card:hover {
+        border-color: var(--border-card-hover);
+        box-shadow: var(--shadow-lg);
+        background: var(--bg-card-hover);
+      }
+
+      .glass-card:hover::before {
+        opacity: 1;
+      }
+
+      .glass-card.gc-small-gap {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .glass-card h2 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        color: var(--text-primary);
+        margin-bottom: 4px;
+      }
+
+      .glass-card h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 6px;
+        margin-top: 4px;
+      }
+
+      .glass-card p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.65;
+      }
+
+      .glass-card ul,
+      .glass-card ol {
+        padding-left: 22px;
+        color: var(--text-secondary);
+        font-size: 0.93rem;
+        line-height: 1.7;
+      }
+
+      .glass-card ul li,
+      .glass-card ol li {
+        margin-bottom: 5px;
+      }
+
+      .glass-card ul li::marker {
+        color: var(--accent-light);
+      }
+
+      .glass-card ol li::marker {
+        color: var(--accent-light);
+        font-weight: 600;
+      }
+
+      .glass-card hr {
+        border: none;
+        border-top: 1px solid var(--border-card);
+        margin: 10px 0;
+      }
+
+      .glass-card a {
+        color: var(--accent-light);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color var(--transition-fast);
+        border-bottom: 1px solid transparent;
+      }
+
+      .glass-card a:hover {
+        color: #c4b5fd;
+        border-bottom-color: rgba(196, 181, 253, 0.4);
+      }
+
+      .disclaimer {
+        font-size: 0.82rem !important;
+        color: var(--text-muted) !important;
+        font-style: italic;
+        line-height: 1.5 !important;
+      }
+
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 6px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        border-radius: var(--radius-sm);
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all var(--transition-smooth);
+        border: 1px solid var(--border-card);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text-primary);
+        white-space: nowrap;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .button::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0);
+        transition: background var(--transition-fast);
+        border-radius: inherit;
+      }
+
+      .button:hover {
+        border-color: var(--border-card-hover);
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      }
+
+      .button:hover::after {
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .button.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+        font-weight: 700;
+        box-shadow: 0 4px 16px var(--accent-glow);
+      }
+
+      .button.primary:hover {
+        background: var(--accent-dark);
+        border-color: var(--accent-dark);
+        box-shadow: 0 6px 24px rgba(139, 92, 246, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .downloads {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+        margin-top: 8px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid var(--border-card);
+        border-radius: var(--radius-md);
+        padding: 20px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: all var(--transition-smooth);
+        position: relative;
+      }
+
+      .card:hover {
+        border-color: var(--border-card-hover);
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+      }
+
+      .card h3 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0;
+      }
+
+      .card p {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        margin: 0;
+        line-height: 1.4;
+      }
+
+      .card .button {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+
+      .card .subtitle {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        font-weight: 400;
+      }
+
+      .linux-variants {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 2px;
+      }
+
+      .linux-variants .variant-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+      }
+
+      .linux-variants .variant-label {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        font-weight: 500;
+        min-width: 70px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .linux-variants .button {
+        font-size: 0.78rem;
+        padding: 7px 14px;
+        flex: 1;
+        min-width: 90px;
+      }
+
+      .contributors {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        gap: 10px;
+        margin-top: 6px;
+        margin-bottom: 10px;
+      }
+
+      .contributors.favor-first-two .card:nth-child(1) {
+        border-color: rgba(139, 92, 246, 0.35);
+        background: rgba(139, 92, 246, 0.06);
+      }
+
+      .contributors .card {
+        padding: 14px 16px;
+        gap: 3px;
+        align-items: flex-start;
+      }
+
+      .contributors .card a {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--accent-light);
+        text-decoration: none;
+        border-bottom: none;
+      }
+
+      .contributors .card a:hover {
+        color: #c4b5fd;
+      }
+
+      .contributors .card .subtitle {
+        font-size: 0.75rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="grid-overlay"></div>
+
+    <main class="app">
+      <div class="title-block">
+        <svg
+          class="logo"
+          viewBox="0 0 72 72"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          alt="Nexus Signer logo"
+        >
+          <defs>
+            <linearGradient id="logoGrad" x1="12" y1="12" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#8b5cf6" />
+              <stop offset="0.55" stop-color="#6366f1" />
+              <stop offset="1" stop-color="#4f46e5" />
+            </linearGradient>
+            <linearGradient id="logoGrad2" x1="60" y1="12" x2="12" y2="60" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#a78bfa" />
+              <stop offset="1" stop-color="#6366f1" />
+            </linearGradient>
+            <filter id="logoGlow">
+              <feGaussianBlur stdDeviation="1.5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <polygon
+            points="36,6 62,21 62,51 36,66 10,51 10,21"
+            fill="none"
+            stroke="url(#logoGrad)"
+            stroke-width="3"
+            stroke-linejoin="round"
+            filter="url(#logoGlow)"
+          />
+          <polygon
+            points="36,18 50,36 36,54 22,36"
+            fill="url(#logoGrad2)"
+            opacity="0.85"
+            stroke="url(#logoGrad)"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+          />
+          <circle cx="36" cy="36" r="5" fill="#fff" opacity="0.9" />
+        </svg>
+
+        <div>
+          <h1 class="title">Nexus Signer</h1>
+          <p class="subtitle">iOS Sideloading Companion &amp; Developer Toolkit</p>
+        </div>
+      </div>
+
+      <div class="workspace">
+        <section class="workspace-section">
+          <div class="section-header">
+            <p class="section-label">About</p>
+            <span class="section-hint">Info about Nexus Signer</span>
+          </div>
+          <div class="glass-card gc-small-gap">
+            <h2>About Nexus Signer</h2>
+            <p>
+              Nexus Signer is a free iOS sideloading companion designed to make
+              installing IPA apps and managing signing certificates as easy as
+              possible.
+            </p>
+            <div>
+              <hr />
+              <h3>Features</h3>
+              <ul>
+                <li>Supports Windows, Linux (x86_64 &amp; ARM), and macOS</li>
+                <li>Place RPPairing and Lockdown Pairing files into apps like StikDebug or Protokolle</li>
+                <li>Get intelligent fixes/suggestions for common errors</li>
+                <li>Install any IPA application</li>
+                <li>See and manage development certificates and App IDs</li>
+                <li>Batch IPA signing &amp; queue management</li>
+                <li>Built-in IPA inspector and metadata viewer</li>
+                <li>Advanced certificate dashboard with expiration tracking</li>
+                <li>Free to use without restrictions</li>
+                <li>View and export detailed logs</li>
+                <li>Connect to devices wirelessly or via USB</li>
+              </ul>
+              <p>And more!</p>
+            </div>
+            <div>
+              <hr />
+              <h3>FAQ</h3>
+              <p>
+                <strong>Where do I download Nexus Signer?</strong> This website and
+                the Codeberg repository linked below are the only official
+                sources.
+              </p>
+              <p>
+                <strong>Is Nexus Signer free?</strong> Yes. Nexus Signer is free
+                to use.
+              </p>
+              <p>
+                <strong>What platforms are supported?</strong> Nexus Signer supports
+                Windows, Linux (ARM and x86_64), and macOS.
+              </p>
+              <p>
+                <strong>What can Nexus Signer install?</strong> Nexus Signer can
+                install any IPA application, from productivity tools to emulators.
+              </p>
+            </div>
+            <div>
+              <hr />
+              <p class="disclaimer">
+                Nexus Signer is designed to be safe and unlikely to cause issues,
+                but we are not responsible for damage to devices, data, or Apple
+                accounts.
+              </p>
+              <hr />
+              <p class="disclaimer">
+                We are not responsible for any misuse of Nexus Signer; please
+                ensure compliance with all applicable laws and regulations.
+              </p>
+              <hr />
+              <p class="disclaimer">
+                Here and
+                <a href="https://codeberg.org/math12393/IPA-SIGNER-WEN"
+                  >the Codeberg repository</a
+                >
+                are the only places Nexus Signer is officially distributed. Do not
+                download Nexus Signer from any other sources. Nexus Signer will
+                always be free to download and will never sell apps or
+                certificates. If you encounter a site selling Nexus Signer or its
+                services, it is not official and likely a scam.
+              </p>
+              <hr />
+            </div>
+            <div class="buttons">
+              <a
+                class="button"
+                href="https://codeberg.org/math12393/IPA-SIGNER-WEN"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Codeberg Repository
+              </a>
+              <a
+                class="button"
+                href="https://codeberg.org/math12393/IPA-SIGNER-WEN/issues"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Report a Bug
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section class="workspace-section">
+          <div class="section-header">
+            <p class="section-label">Download</p>
+            <span class="section-hint">Choose your platform</span>
+          </div>
+          <div class="glass-card">
+            <h2>Download Nexus Signer</h2>
+            <p>
+              All downloads are sourced directly from the
+              <a
+                href="https://codeberg.org/math12393/IPA-SIGNER-WEN"
+                target="_blank"
+                rel="noreferrer"
+              >
+                official Codeberg repository.
+              </a>
+            </p>
+            <div class="downloads">
+              <div class="card">
+                <h3>Windows</h3>
+                <p>
+                  Requires
+                  <a href="https://apple.co/ms" target="_blank" rel="noreferrer"
+                    >iTunes</a
+                  >
+                  to be installed
+                </p>
+                <a
+                  class="button primary"
+                  href="https://codeberg.org/math12393/IPA-SIGNER-WEN/raw/branch/main/Nexus-Signer_1.0.0_x64-setup.exe"
+                >
+                  EXE Installer (x64)
+                </a>
+              </div>
+
+              <div class="card">
+                <h3>macOS</h3>
+                <p>No prerequisites required</p>
+                <a
+                  class="button primary"
+                  href="https://codeberg.org/math12393/IPA-SIGNER-WEN/raw/branch/main/Nexus-Signer_1.0.0_universal.dmg"
+                >
+                  DMG Installer (Universal)
+                </a>
+              </div>
+
+              <div class="card">
+                <h3>Linux</h3>
+                <p>Requires usbmuxd (likely bundled with your distro)</p>
+                <div class="linux-variants">
+                  <div class="variant-row">
+                    <span class="variant-label">DEB</span>
+                    <a
+                      class="button"
+                      href="https://codeberg.org/math12393/IPA-SIGNER-WEN/raw/branch/main/Nexus-Signer_1.0.0_amd64.deb"
+                    >
+                      amd64
+                    </a>
+                    <a
+                      class="button"
+                      href="https://codeberg.org/math12393/IPA-SIGNER-WEN/raw/branch/main/Nexus-Signer_1.0.0_arm64.deb"
+                    >
+                      arm64
+                    </a>
+                  </div>
+                  <div class="variant-row">
+                    <span class="variant-label">RPM</span>
+                    <a
+                      class="button"
+                      href="https://codeberg.org/math12393/IPA-SIGNER-WEN/raw/branch/main/Nexus-Signer-1.0.0-1.x86_64.rpm"
+                    >
+                      x86_64
+                    </a>
+                    <a
+                      class="button"
+                      href="https://codeberg.org/math12393/IPA-SIGNER-WEN/raw/branch/main/Nexus-Signer-1.0.0-1.aarch64.rpm"
+                    >
+                      aarch64
+                    </a>
+                  </div>
+                  <div class="variant-row">
+                    <span class="variant-label">AppImage</span>
+                    <a
+                      class="button"
+                      href="https://codeberg.org/math12393/IPA-SIGNER-WEN/raw/branch/main/Nexus-Signer_1.0.0_amd64.AppImage"
+                    >
+                      amd64
+                    </a>
+                    <a
+                      class="button"
+                      href="https://codeberg.org/math12393/IPA-SIGNER-WEN/raw/branch/main/Nexus-Signer_1.0.0_aarch64.AppImage"
+                    >
+                      aarch64
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="workspace-section">
+          <div class="section-header">
+            <p class="section-label">Credits</p>
+            <span class="section-hint">Created by</span>
+          </div>
+          <div class="glass-card">
+            <p style="margin-bottom: 14px;">
+              Nexus Signer is developed and maintained by math12393.
+            </p>
+            <div class="contributors favor-first-two">
+              <div class="card">
+                <a
+                  href="https://codeberg.org/math12393"
+                  target="_blank"
+                  rel="noreferrer"
+                >math12393</a>
+                <span class="subtitle">Creator &amp; Maintainer</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="workspace-section">
+          <div class="section-header">
+            <p class="section-label">Technical Details</p>
+            <span class="section-hint">How Nexus Signer works</span>
+          </div>
+          <div class="glass-card">
+            <h2>How Nexus Signer works</h2>
+            <p>
+              Nexus Signer works by essentially pretending to be a Mac running
+              Xcode, allowing it to use Apple's official APIs and tools for
+              sideloading, which are intended for developers to test their apps.
+            </p>
+            <ol>
+              <li>
+                First, Nexus Signer acquires information about a fake Mac from an
+                anisette server. This is why a Mac shows up in your Apple ID
+                devices when you use Nexus Signer. If Nexus Signer hasn't logged
+                in from this computer before, it provisions with the anisette
+                server to get a new fake Mac identity, called an adi.pb, which
+                can be reused for future logins. This is why you have to log in
+                with 2FA the first time you use Nexus Signer, but not subsequent
+                times.
+              </li>
+              <li>
+                Next, Nexus Signer uses this information to log in to your Apple
+                ID using Apple's GrandSlam authentication protocol. This is a
+                multi-step process that uses the Secure Remote Password (SRP)
+                protocol to securely transmit your password and 2FA code to
+                Apple.
+              </li>
+              <li>
+                Once logged in, Nexus Signer acquires a token for Xcode, which it
+                can then use to create a developer session.
+              </li>
+              <li>
+                When sideloading an app, Nexus Signer has to register an app ID
+                and app group, assign the app ID to the group, and create a
+                provisioning profile for the app. It does all of this using
+                Apple's APIs, just like Xcode would.
+              </li>
+              <li>
+                Nexus Signer also has to acquire a development certificate to
+                sign the app with. If Nexus Signer doesn't have one stored, it
+                has to create a new one and send a certificate signing request
+                (CSR) to Apple and have it signed.
+              </li>
+              <li>
+                Nexus Signer then uses the provisioning profile and certificate
+                to sign the app with apple-codesign, at which point it can be
+                transferred to the device and installed using idevice.
+              </li>
+            </ol>
+            <p style="margin-top: 12px;">
+              Beyond standard sideloading, Nexus Signer includes additional
+              developer-oriented tools such as batch processing queues, an IPA
+              metadata inspector, and an enhanced certificate management
+              dashboard with visual expiration tracking — all designed to
+              streamline the workflow for power users.
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer style="
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 32px 24px 40px;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border-card);
+      margin-top: 20px;
+    ">
+      <p>
+        © 2026 math12393. Nexus Signer is free software. All rights reserved.
+        <a
+          href="https://codeberg.org/math12393/IPA-SIGNER-WEN"
+          target="_blank"
+          rel="noreferrer"
+          style="color: var(--accent-light); text-decoration: none;"
+        >Codeberg</a>
+      </p>
+    </footer>
+  </body>
+</html>
