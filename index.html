@@ -907,10 +907,6 @@
                 "✅ Wait Till New <span class='status-up'> Certificate </span> Comes out"
             ],
 
-            //"⚠️ China Telecom Corporation Limited is currently <b>revoked</b>.",
-            //"✅ Wait Till New <span class='status-up'> Certificate </span> Comes out"
-            //"✅ Working: <span class='status-up'> HSBC Bank plc </span>"
-
             updateNotice: "🚀 <b>Important Update:</b> The Mobile Config has been updated to the latest enterprise certificate. To avoid issues, please <b>delete any old configuration profiles</b> from your settings before installing this new one.",
             popularIpas: [
                 { name: "Geometry Dash 2.205", url: "https://archive.org/download/ipas_20260327_20260330/geometry_dash_v2.205.ipa" },
@@ -1354,12 +1350,22 @@
             const aiMessages = document.getElementById('ai-chat-messages');
 
             const WORKER_URL = "https://tom-the-ai-api.wen471942.workers.dev/";
+            
             const SYSTEM_CONTEXT =
                 "You are Tom, an expert AI assistant specialized in iOS IPA signing, sideloading, Apple enterprise certificates, " +
                 "developer certificates, p12 files, mobileprovision profiles, UDID registrations, certificate revokes, " +
                 "iOS app installation, AltStore, SideStore, TrollStore, Esign, Scarlet, Feather signer, " +
                 "certificate blocking (CR blockers), VPN-proof configurations, ad blocking DNS profiles, " +
                 "iOS developer mode, IPA editing, bundle IDs, and all things related to iOS app signing and sideloading. " +
+                "You also know exactly how to use the website you are on. The site has two main signer tools: " +
+                "1. The main 'Nexus Signer' (uses the active Enterprise Certificate). Here, users input an 'App Display Name', " +
+                "optionally select an 'App Display Icon', and 'Click to select .ipa' to upload their file. There is a 'JIT Enabler' toggle " +
+                "for debugger attachment. They then press the big blue 'Sign & Generate Links' button. " +
+                "2. The 'Custom Nexus Signer' (Bring Your Own Certificate). Here, users input 'App Display Name', optionally select an App Icon, " +
+                "select their .ipa file, upload their 'P12 Certificate' (required) and 'Mobileprovision' (required), enter the " +
+                "'P12 Password' (if any), and confirm the 'Bundle ID' (auto-detected if left empty). There is also a 'JIT Enabler' toggle. " +
+                "They then press the purple 'Sign with Custom Certificate' button. " +
+                "When users ask how to use the site, guide them through these specific UI elements and tell them which button to press. " +
                 "Answer concisely and helpfully. If asked something outside iOS/IPA topics, still try to help briefly.";
 
             let conversationHistory = [];
