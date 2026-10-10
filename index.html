@@ -575,7 +575,6 @@
             color: #fecaca;
         }
 
-        /* Companion button */
         .companion-btn {
             display: block;
             background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
@@ -602,7 +601,6 @@
             transform: scale(0.95);
         }
 
-        /* Admin button */
         #admin-site-btn {
             position: fixed;
             bottom: 22px;
@@ -646,7 +644,6 @@
             line-height: 1;
         }
 
-        /* AI floating bubble */
         #ai-floating-bubble {
             position: fixed;
             bottom: 22px;
@@ -679,7 +676,6 @@
             transition: transform 0.1s ease;
         }
 
-        /* AI chat popup */
         #ai-chat-popup {
             position: fixed;
             bottom: 85px;
@@ -872,16 +868,13 @@
 
     <div id="main-wrapper"></div>
 
-    <!-- Admin Site Button -->
     <button id="admin-site-btn" title="Admin Panel">
         <span class="admin-icon">🔐</span>
         <span class="admin-label">Admin Site</span>
     </button>
 
-    <!-- AI Floating Bubble -->
     <div id="ai-floating-bubble" title="Ask Tom The AI">🤖</div>
 
-    <!-- AI Chat Popup -->
     <div id="ai-chat-popup">
         <div class="ai-chat-header">
             <span class="ai-title">🤖 Tom The AI</span>
@@ -916,7 +909,8 @@
 
             //"⚠️ China Telecom Corporation Limited is currently <b>revoked</b>.",
             //"✅ Wait Till New <span class='status-up'> Certificate </span> Comes out"
-            
+            //"✅ Working: <span class='status-up'> HSBC Bank plc </span>"
+
             updateNotice: "🚀 <b>Important Update:</b> The Mobile Config has been updated to the latest enterprise certificate. To avoid issues, please <b>delete any old configuration profiles</b> from your settings before installing this new one.",
             popularIpas: [
                 { name: "Geometry Dash 2.205", url: "https://archive.org/download/ipas_20260327_20260330/geometry_dash_v2.205.ipa" },
@@ -936,20 +930,56 @@
             ],
             ezSteps: [
                 {
-                    head: "Step 1: Install Config",
-                    body: "Click the big blue button above. Tap 'Allow', then close the popup. Go to <b>Settings > Profile Downloaded</b> and hit Install."
+                    head: "Step 1: Delete Your Old Profiles",
+                    body: "Before you install anything new, open <b>Settings > General > VPN & Device Management</b> and <b>remove every old / expired profile</b> you can find. Old configs fight with the new certificate and will make signing fail."
                 },
                 {
-                    head: "Step 2: Sign Your App",
-                    body: "Use the Tool below. Upload your .IPA file, wait for it to finish, and click the <b>Install</b> button when it appears."
+                    head: "Step 2: Pick Your Profile",
+                    body: "Scroll up to <b>Choose Your Profile</b>. Tap the card you want (the <b>CR Blocker Comprehensive</b> one is recommended). A blue dot shows which one is selected."
                 },
                 {
-                    head: "Step 3: Trust the App",
-                    body: "The app won't open yet! Go to <b>Settings > General > VPN & Device Management</b>. Find the developer name and tap <b>Trust</b>."
+                    head: "Step 3: Download The Mobile Config",
+                    body: "Tap the big <b>⬇️ DOWNLOAD SELECTED PROFILE</b> button. Safari will say <i>\"This website is trying to download a configuration profile\"</i> — tap <b>Allow</b>, then tap <b>Close</b>."
                 },
                 {
-                    head: "Step 4: Dev Mode (iOS 16+)",
-                    body: "If it says 'Developer Mode Required', go to <b>Settings > Privacy & Security</b>, scroll to the bottom, and turn <b>Developer Mode ON</b>."
+                    head: "Step 4: Install The Profile",
+                    body: "Open <b>Settings</b> and tap <b>Profile Downloaded</b> at the top (or go to <b>General > VPN & Device Management</b>). Tap the profile, tap <b>Install</b> in the top right, enter your <b>passcode</b>, tap <b>Install</b> again, then <b>Done</b>."
+                },
+                {
+                    head: "Step 5: Open The Signer",
+                    body: "Scroll down to the signer box below. If it looks blank, glitched, or keeps spinning, tap <b>↗️ Open Signer in New Tab</b> at the top of that box instead."
+                },
+                {
+                    head: "Step 6: Upload Your IPA",
+                    body: "Tap the upload area and pick your <b>.ipa</b> file from <b>Files</b> — or paste a direct link to an IPA. You can use one from the <b>🔥 Popular IPAs</b> section above or your own file."
+                },
+                {
+                    head: "Step 7: Wait For It To Sign",
+                    body: "Tap <b>Sign</b> / <b>Start</b> and <b>do not close the tab</b>. Keep your screen on. Signing usually takes 30 seconds to a few minutes depending on how big the IPA is."
+                },
+                {
+                    head: "Step 8: Install The Signed App",
+                    body: "When it finishes, an <b>Install</b> button appears. Tap it, then tap <b>Install</b> again on the popup. Go to your <b>Home Screen</b> and watch the app icon load (it will look greyed out until it's done)."
+                },
+                {
+                    head: "Step 9: Trust The Certificate",
+                    body: "The app <b>will not open yet</b> — that is normal! Go to <b>Settings > General > VPN & Device Management</b>. Find the developer / enterprise name, tap it, tap <b>Trust</b>, then tap <b>Trust</b> again."
+                },
+                {
+                    head: "Step 10: Turn On Developer Mode (iOS 16+)",
+                    body: "If the app says <i>\"Developer Mode Required\"</i>, go to <b>Settings > Privacy & Security</b>, scroll all the way to the bottom, tap <b>Developer Mode</b>, turn it <b>ON</b>, then <b>restart</b> your iPhone and tap <b>Turn On</b> when asked."
+                },
+                {
+                    head: "Step 11: App Stopped Working? (Revoked)",
+                    body: "If the app suddenly stops opening, the certificate was <b>revoked</b>. Delete the app, delete the old profile, download a <b>fresh mobile config</b>, re-sign the IPA, and trust it again. Check the <b>📢 Announcements</b> box above for revoked certs."
+                },
+                {
+                    head: "Step 12: Using Your Own Certificate",
+                    body: "Have your own <b>.p12</b> + <b>.mobileprovision</b>? Do <b>NOT</b> install the mobile config above. Open <b>🔐 Import Your Own Certificate</b> below, upload your files, type your <b>p12 password</b>, and sign from there."
+                },
+                {
+                    head: "Step 13: Still Stuck?",
+                    body: "Tap the <b>🤖 Tom The AI</b> bubble in the bottom-left corner and ask your question. Tom knows IPA signing, certificates, revokes, developer mode, bundle IDs, and sideloading inside out."
                 }
             ],
             recommendedSites: [
@@ -1221,13 +1251,11 @@
                     </div>
                 </div>
 
-                <!-- Companion Button -->
                 <a href="${appData.companionUrl}" target="_blank" rel="noopener" class="companion-btn">
                     🚀 Go To Nexus Signer Side Loading Companion
                 </a>
             `;
 
-            // Profile selection
             const profileCards = document.querySelectorAll('.profile-card');
             const downloadBtn = document.getElementById('downloadProfileBtn');
             let selectedFile = appData.profiles.find(p => p.recommended).file;
@@ -1245,7 +1273,6 @@
                 });
             });
 
-            // Import toggle
             const toggleBtn = document.getElementById('importToggleBtn');
             const importSection = document.getElementById('importSection');
             toggleBtn.addEventListener('click', function() {
@@ -1258,7 +1285,6 @@
                 }
             });
 
-            // Advanced tools accordion
             const toolPanels = document.querySelectorAll('.tool-panel');
             toolPanels.forEach(panel => {
                 const header = panel.querySelector('.tool-panel-header');
@@ -1299,7 +1325,6 @@
             });
         }
 
-        // Admin button
         function setupAdminButton() {
             const adminBtn = document.getElementById('admin-site-btn');
             if (!adminBtn) return;
@@ -1320,7 +1345,6 @@
             });
         }
 
-        // AI Chat with memory
         function setupAIChat() {
             const aiBubble = document.getElementById('ai-floating-bubble');
             const aiPopup = document.getElementById('ai-chat-popup');
@@ -1338,9 +1362,8 @@
                 "iOS developer mode, IPA editing, bundle IDs, and all things related to iOS app signing and sideloading. " +
                 "Answer concisely and helpfully. If asked something outside iOS/IPA topics, still try to help briefly.";
 
-            // Memory storage
             let conversationHistory = [];
-            const MAX_HISTORY = 10; // keep last N exchanges (user + ai)
+            const MAX_HISTORY = 10;
 
             let isOpen = false;
 
@@ -1387,10 +1410,8 @@
                 aiMessages.appendChild(div);
                 scrollToBottom();
 
-                // Store only user and ai messages in history
                 if (storeInMemory && (type === 'user' || type === 'ai')) {
                     conversationHistory.push({ role: type, content: text });
-                    // Trim history if too long
                     if (conversationHistory.length > MAX_HISTORY * 2) {
                         conversationHistory = conversationHistory.slice(-MAX_HISTORY * 2);
                     }
@@ -1406,7 +1427,6 @@
                 aiInput.value = '';
                 aiSendBtn.disabled = true;
 
-                // Build prompt with memory
                 let prompt = SYSTEM_CONTEXT + "\n\n";
                 if (conversationHistory.length > 0) {
                     prompt += "Conversation so far:\n";
